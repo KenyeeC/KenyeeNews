@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>KENYEEnews</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/KYc.css"/>
+		<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/vedioControl.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/SimpleModal.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/KYc.js" ></script>
+		<!--
+        	作者：yip_25@163.com
+        	时间：2015-11-01
+        	描述：使用flickity
+        -->
+		<link rel="stylesheet" type="text/css" href="css/flickity.css"/>
+		<script src="js/flickitypkgdmin.js" type="text/javascript" charset="utf-8"></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<style type="text/css">
+		.thumbnail h5{font-size: 16px;}
+	</style>
+	</head>
+	<body>
+<!--
+	作者：yip_25@163.com
+	时间：2015-10-31
+	描述：导航栏
+-->
+		<nav class="nav navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+                <a href="kenyee.html" class="navbar-brand">KENYEE</a>
+                <!-- 管理员控制按钮 -->
+						<div id="adminControl" class="btn-group navbar-left col-sm-1 col-xs-4">
+						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    <span class="glyphicon glyphicon-user"></span> admin &nbsp;<span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu">
+						    <li><a href="news.html">到文章页面添加文章</a></li>
+						    <li><a href="news.html">到文章页面删除文章</a></li>
+						    <li role="separator" class="divider"></li>
+						    <li id="logout"><a href="#">退出登录</a></li>
+						  </ul>
+						</div>  
+                
+				    <button class="navbar-toggle" data-toggle="collapse" data-target = ".navbar-collapse" >
+				    	<span class="icon-bar"></span>
+				    	<span class="icon-bar"></span>
+				    	<span class="icon-bar"></span>
+				    </button>
+				    <div class="collapse navbar-collapse">
+					
+						<div class="navbar-form navbar-right">
+							<div class="input-group">														
+								<input type="text" class="form-control" placeholder="新闻标题或内容"/>	
+								<div class="input-group-addon table-hover"><span class="glyphicon glyphicon-search"></span></div>
+							</div>
+						</div>
+						<ul class="nav navbar-nav navbar-right">
+						  	<li><a href="kenyee.html">首页</a></li>
+							<li><a href="news.html">文章</a></li>
+							<li><a href="picture.html">图片</a></li>
+							<li><a id="vertical">|</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">								
+								<span class="glyphicon glyphicon-cog table-hover"></span> 设置</a>
+								<ul class="dropdown-menu">									
+									<li id="admin"><a href="#">管理员登陆</a></li>
+									<li class="divider"></li>
+									<li id="aboutme"><a href="#">关于我</a></li>
+								</ul>
+							</li>
+						</ul> 
+					</div>	
+			</div>
+		</nav>
+        <!--管理员登陆，使用simplemodal-->		
+        <div id="admindialog">        	
+        		<div class="row">         			
+        			<div class="box-tittle show"><h3>欢迎你管理员，请登录</h3></div>        			
+        		</div>
+		        <div class="row">
+		        	<div class="col-md-8 col-md-offset-2">        
+	        		<form class=" form-inline">
+		        		<div class="form-group">       			       		
+					        <br />
+					        <label for="name">账号:&nbsp;</label><input class="form-control" id="name" name="name" type="text" placeholder="admin" /><br /><br />
+				     	    <label for="password">密码:&nbsp;</label><input class="form-control" id="password" name="password" type="password" placeholder="admin" />	        		
+				       </div>
+		        	</form>
+		        	</div>
+	        	</div>	        	
+	        	<div class="row">
+	        		<div class="col-md-4 col-md-offset-5">	        		
+	        		<br />
+	        		<a id="login" tabindex="0" class="btn btn-info" role="button" data-toggle="popover" data-trigger="focus" data-content="账号密码错误">登陆</a>
+	        		</div>
+	        	</div>        	
+        </div>
+        <!--关于我功能，使用simplemodal-->
+        <div id="aboutmeInfo">
+        	<div class="row">
+        		<div class="col-sm-4 col-sm-offset-2">       			       		
+        	<div class="thumbnail">
+        		<img src="img/author/author.jpg" />
+        	</div>
+        	</div>
+        	</div>
+        	<div style="margin-left: 60px;">
+        	<h4>作者：张建业</h4>
+        	<h4>邮箱：285482599@qq.com</h4>
+        	<h4>手机：13631316946</h4>
+        	<h4>  QQ ： 285482599</h4>
+        	</div>
+        </div>
+  <div class="container">
+     <div class="row">
+			  <div id="navBlock1"> </div>				 			
+<!--
+	作者：yip_25@163.com
+	时间：2015-11-01
+	描述：顶部LOGO及描述
+-->			
+			    <div id="navBlock0" class="row">
+				   <div class="col-md-2">
+				   		<img class="pull-left" src="img/LOGO/logo.jpg" />
+				   </div>
+			    </div>
+		    </div>
+</div>
+<!--
+	作者：yip_25@163.com
+	时间：2015-11-01
+	描述：顶部图片滚动
+-->	
+    
+    	<div class="container">
+            <div class="row">
+    	  	<div class="gallery js-flickity"
+		  		data-flickity-options='{ "imagesLoaded": true, "percentPosition": false,"contain":true,"autoPlay":4000 }'>
+		  		<a href="#"><img class="gallery-cell" src="img/顶栏图片/TP1.jpg" /></a>
+		  		<a href="#"><img class="gallery-cell" src="img/顶栏图片/TP2.jpg" /></a>
+		  		<a href="#"><img class="gallery-cell" src="img/顶栏图片/TP3.jpg" /></a>
+		  		<a href="#"><img class="gallery-cell" src="img/顶栏图片/TP4.jpg" /></a>	
+		  		<a href="#"><img class="gallery-cell" src="img/顶栏图片/TP5.jpg" /></a>	
+			</div>  		
+    	</div>  	
+    </div>
+   
+<!--
+	作者：yip_25@163.com
+	时间：2015-11-01
+	描述：顶部图片与内容间隙
+-->
+    <div id="navBlock2"> </div>
+		<div class="container">
+			<div class="row">
+<!--
+	作者：yip_25@163.com
+	时间：2015-10-31
+	描述：内容右边图片及视频
+-->
+				<div class="col-md-12">
+					<ul class="nav nav-tabs">
+					  <li role="presentation" class="active" ><a href="#picture" data-toggle = "tab">图片</a></li>
+					</ul>
+					<div class="tab-content col-md-12" >
+						<div class="tab-pane active" id="picture">
+							<div class="col-md-4">
+								<div class="thumbnail" style="margin-top: 30px;">
+								      	<a href="#picture"><img  src="img/图片新闻/TH1.jpg" alt="news"></a>
+								    <div class="caption">
+								        <h5 class="text-center"><a href="#picture">内地2000人赴台北参加第13届台湾同志游行</a></h5>					 
+								    </div>
+								    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+						        </div>
+					        </div>
+					        <div class="col-md-4">
+						        <div class="thumbnail" style="margin-top: 30px;">
+									      <a href="#picture"><img  src="img/图片新闻/TH2.jpg" alt="news"></a>
+								    <div class="caption">
+									        <h5 class="text-center"><a href="#picture">金正恩视察平壤现代化鲶鱼养殖场</a></h5>					 
+								    </div>
+								    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+		        				</div>
+					        </div>	
+					        <div class="col-md-4">
+						        <div class="thumbnail" style="margin-top: 30px;">
+								        <a href="#picture"><img  src="img/图片新闻/TH3.jpg" alt="news"></a>
+								    <div class="caption">
+								        <h5 class="text-center"><a href="#picture">默克尔参观合肥市一小学 现场“授课”</a></h5>						 
+						    		</div>
+                                    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+						        </div>
+						    </div>
+						    <div class="col-md-4">
+								<div class="thumbnail" style="margin-top: 30px;">
+								      	<a href="#picture"><img  src="img/图片新闻/TH1.jpg" alt="news"></a>
+								    <div class="caption">
+								        <h5 class="text-center"><a href="#picture">内地2000人赴台北参加第13届台湾同志游行</a></h5>					 
+								    </div>
+								    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+						        </div>
+					        </div>
+					        <div class="col-md-4">
+						        <div class="thumbnail" style="margin-top: 30px;">
+									      <a href="#picture"><img  src="img/图片新闻/TH2.jpg" alt="news"></a>
+								    <div class="caption">
+									        <h5 class="text-center"><a href="#picture">金正恩视察平壤现代化鲶鱼养殖场</a></h5>					 
+								    </div>
+								    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+		        				</div>
+					        </div>	
+					        <div class="col-md-4">
+						        <div class="thumbnail" style="margin-top: 30px;">
+								        <a href="#picture"><img  src="img/图片新闻/TH3.jpg" alt="news"></a>
+								    <div class="caption">
+								        <h5 class="text-center"><a href="#picture">默克尔参观合肥市一小学 现场“授课”</a></h5>						 
+						    		</div>
+                                    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+						        </div>
+						    </div>
+						    <div class="col-md-4">
+								<div class="thumbnail" style="margin-top: 30px;">
+								      	<a href="#picture"><img  src="img/图片新闻/TH1.jpg" alt="news"></a>
+								    <div class="caption">
+								        <h5 class="text-center"><a href="#picture">内地2000人赴台北参加第13届台湾同志游行</a></h5>					 
+								    </div>
+								    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+						        </div>
+					        </div>
+					        <div class="col-md-4">
+						        <div class="thumbnail" style="margin-top: 30px;">
+									      <a href="#picture"><img  src="img/图片新闻/TH2.jpg" alt="news"></a>
+								    <div class="caption">
+									        <h5 class="text-center"><a href="#picture">金正恩视察平壤现代化鲶鱼养殖场</a></h5>					 
+								    </div>
+								    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+		        				</div>
+					        </div>	
+					        <div class="col-md-4">
+						        <div class="thumbnail" style="margin-top: 30px;">
+								        <a href="#picture"><img  src="img/图片新闻/TH3.jpg" alt="news"></a>
+								    <div class="caption">
+								        <h5 class="text-center"><a href="#picture">默克尔参观合肥市一小学 现场“授课”</a></h5>						 
+						    		</div>
+                                    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+						        </div>
+						    </div>
+						    <div class="col-md-4">
+								<div class="thumbnail" style="margin-top: 30px;">
+								      	<a href="#picture"><img  src="img/图片新闻/TH1.jpg" alt="news"></a>
+								    <div class="caption">
+								        <h5 class="text-center"><a href="#picture">内地2000人赴台北参加第13届台湾同志游行</a></h5>					 
+								    </div>
+								    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+						        </div>
+					        </div>
+					        <div class="col-md-4">
+						        <div class="thumbnail" style="margin-top: 30px;">
+									      <a href="#picture"><img  src="img/图片新闻/TH2.jpg" alt="news"></a>
+								    <div class="caption">
+									        <h5 class="text-center"><a href="#picture">金正恩视察平壤现代化鲶鱼养殖场</a></h5>					 
+								    </div>
+								    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+		        				</div>
+					        </div>	
+					        <div class="col-md-4">
+						        <div class="thumbnail" style="margin-top: 30px;">
+								        <a href="#picture"><img  src="img/图片新闻/TH3.jpg" alt="news"></a>
+								    <div class="caption">
+								        <h5 class="text-center"><a href="#picture">默克尔参观合肥市一小学 现场“授课”</a></h5>						 
+						    		</div>
+                                    <span class="glyphicon glyphicon-pencil"></span>
+											<small>&nbsp;</small>
+											<small class="time">2015-10-31</small>			
+										    <span class="pull-right">
+										    <span class="glyphicon glyphicon-eye-open"></span>
+										    <small>&nbsp;</small>
+										    <small class="clickNumber">0</small>
+								    </span>
+						        </div>
+						    </div>
+				        </div>
+			        </div>
+						</div>    					    
+ 					</div>
+				</div>
+			</div>
+		</div>
+    <footer class="container-fluid">
+    	<small>粤ICP备233123123213号 粤ICP证123213213号 人才服务许可证:12321323 粤公网安备:121322323</small>
+           <small>Copyright© 285482599@qq.com kenyeecheung All Rights Reserved</small>
+    </footer>
+	</body>
+</html>

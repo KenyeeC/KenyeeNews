@@ -1,0 +1,95 @@
+	*{margin: 0;padding: 0;}
+	/*导航栏竖线样式*/
+		#vertical:hover{color:#9D9D9D;}
+	/*导航栏设置样式*/
+		.input-group-addon:hover{opacity: 0.9;}
+    /*管理员控制按钮样式*/
+    .btn-default{color:#333;background-color:#9D9D9D;border-color:#9D9D9D}
+	#adminControl{margin-top: 8px;display: none;}
+	/*flickity样式*/
+	    /* already included in flickity.css */
+		.flickity-prev-next-button:focus {
+		  outline: none;
+		  box-shadow: 0 0 0 5px #09F;
+		}
+      .gallery-cell {
+					  width: 768px; /* full width */
+					  height: 300px; /* height of gallery */
+					  margin-right: 10px;
+					}	
+    	.flickity-prev-next-button {
+		  width: 100px;
+		  height: 100px;
+		  background: transparent;
+		}
+		.flickity-prev-next-button:hover {
+		  background: transparent;
+		}
+		/* arrow color */
+		.flickity-prev-next-button .arrow {
+		  fill: white;
+		}
+		.flickity-prev-next-button.no-svg {
+		  color: white;
+		}
+		/* hide disabled button */
+		.flickity-prev-next-button:disabled {
+		  display: none;
+		}
+	/*导航和内容的间隔*/
+	    #navBlock0{margin-bottom: 20px;margin-left: 0px;}
+	    #navBlock1{height: 70px;}
+	    #navBlock2{height: 30px;}
+	/*内容与表头颜色样式*/
+	    .nav-tabs>li>a{color: #666;}
+	/*左边栏样式*/
+        .panel-heading>a{color: #000000;}
+        .panel-heading>a:hover{color: #CC1B1B;}
+        .media-body a{color: #000000;}
+        .media-body a:hover{color: #CC1B1B;}
+        .panel .list-group-item{border:none;}
+        .panel{margin-top: 40px;}	
+      
+       
+    
+    /*新闻内容的样式*/
+        .tab-pane a{color: #000000;}
+        .tab-pane a:hover{color: #CC1B1B;}
+        .tab-pane p{line-height: 25px;}
+        .list-group-item{border:none;border-top:thin solid #EBEBEB}
+         #news,#sport,#science,#entertament .list-group {
+        	height: 1100px;
+        	overflow-y:scroll;     
+        }
+       
+    
+    /*右边图片及视频样式*/
+	  .thumbnail{border: none;}
+	  .thumbnail strong{line-height: 25px;}
+	  .thumbnail a{color: #000000;}
+	  .thumbnail a:hover{color: #CC1B1B;}
+	  
+	 /*底部footer样式*/ 
+	footer{
+		height: 50px;
+		background-color:#F5F5F5;
+		text-align: center;
+		padding-top: 10px;
+	}
+	footer>small{
+		color: #999;
+		display: block;
+	}
+	/*simplemodal样式*/
+		#admindialog {display:none;}	
+		#aboutmeInfo {display:none;}	
+		#addnews{display: none;}
+		#delnews{display: none;}
+		#admindialog h3{text-align: center;}	
+		/* Overlay */
+		#simplemodal-overlay {background-color:#000;}		
+		/* Container */
+		#simplemodal-container {height:280px; width:400px; color:#bbb; background-color:#333; border:4px solid #444; padding:12px;}
+		#simplemodal-container .simplemodal-data {padding:8px;}
+		#simplemodal-container .modalCloseImg {background:url(../img/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-10px; right:-10px; cursor:pointer;}
+

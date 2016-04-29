@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>KENYEEnews</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/KYc.css"/>
+		<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/vedioControl.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/SimpleModal.js" type="text/javascript" charset="utf-8"></script>      
+		<script type="text/javascript" src="js/KYc.js" ></script>
+		<!--
+        	作者：yip_25@163.com
+        	时间：2015-11-01
+        	描述：使用flickity
+        -->
+		<link rel="stylesheet" type="text/css" href="css/flickity.css"/>
+		<script src="js/flickitypkgdmin.js" type="text/javascript" charset="utf-8"></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style type="text/css">		
+         #news,#sport,#science,#entertament .list-group {
+        	height:initial;
+        	overflow-y:initial;     
+        }	 
+        }
+		</style>
+	</head>
+	<body>
+<!--
+	作者：yip_25@163.com
+	时间：2015-10-31
+	描述：导航栏
+-->
+		<nav class="nav navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+                <a href="kenyee.html" class="navbar-brand">KENYEE</a>
+                <!-- 管理员控制按钮 -->
+						<div id="adminControl" class="btn-group navbar-left col-sm-1 col-xs-4">
+						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    <span class="glyphicon glyphicon-user"></span> admin &nbsp;<span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu">
+						    <li id="addNews"><a href="#">添加文章</a></li>
+						    <li id="delNews"><a href="#">删除文章</a></li>
+						    <li role="separator" class="divider"></li>
+						    <li id="logout"><a href="#">退出登录</a></li>
+						  </ul>
+						</div>  
+                
+				    <button class="navbar-toggle" data-toggle="collapse" data-target = ".navbar-collapse" >
+				    	<span class="icon-bar"></span>
+				    	<span class="icon-bar"></span>
+				    	<span class="icon-bar"></span>
+				    </button>
+				    <div class="collapse navbar-collapse">
+					
+						<div class="navbar-form navbar-right">
+							<div class="input-group">														
+								<input type="text" class="form-control" placeholder="新闻标题或内容"/>	
+								<div class="input-group-addon table-hover"><span class="glyphicon glyphicon-search"></span></div>
+							</div>
+						</div>
+						<ul class="nav navbar-nav navbar-right">
+						  	<li><a href="kenyee.html">首页</a></li>
+							<li><a href="news.html">文章</a></li>
+							<li><a href="picture.html">图片</a></li>
+							<li><a id="vertical">|</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">								
+								<span class="glyphicon glyphicon-cog table-hover"></span> 设置</a>
+								<ul class="dropdown-menu">									
+									<li id="admin"><a href="#">管理员登陆</a></li>
+									<li class="divider"></li>
+									<li id="aboutme"><a href="#">关于我</a></li>
+								</ul>
+							</li>
+						</ul> 
+					</div>	
+			</div>
+		</nav>
+        <!--管理员登陆，使用simplemodal-->		
+        <div id="admindialog">        	
+        		<div class="row">         			
+        			<div class="box-tittle show"><h3>欢迎你管理员，请登录</h3></div>        			
+        		</div>
+		        <div class="row">
+		        	<div class="col-md-8 col-md-offset-2">        
+	        		<form class=" form-inline">
+		        		<div class="form-group">       			       		
+					        <br />
+					        <label for="name">账号:&nbsp;</label><input class="form-control" id="name" name="name" type="text" placeholder="admin" /><br /><br />
+				     	    <label for="password">密码:&nbsp;</label><input class="form-control" id="password" name="password" type="password" placeholder="admin" />	        		
+				       </div>
+		        	</form>
+		        	</div>
+	        	</div>	        	
+	        	<div class="row">
+	        		<div class="col-md-4 col-md-offset-5">	        		
+	        		<br />
+	        		<a id="login" tabindex="0" class="btn btn-info" role="button" data-toggle="popover" data-trigger="focus" data-content="账号密码错误">登陆</a>
+	        		</div>
+	        	</div>        	
+        </div>
+        <!--关于我功能，使用simplemodal-->
+        <div id="aboutmeInfo">
+        	<div class="row">
+        		<div class="col-sm-4 col-sm-offset-2">       			       		
+        	<div class="thumbnail">
+        		<img src="img/author/author.jpg" />
+        	</div>
+        	</div>
+        	</div>
+        	<div style="margin-left: 60px;">
+        	<h4>作者：张建业</h4>
+        	<h4>邮箱：285482599@qq.com</h4>
+        	<h4>手机：13631316946</h4>
+        	<h4>  QQ ： 285482599</h4>
+        	</div>
+        </div>
+        <!--添加文章功能，使用simplemodal-->
+        <div id="addnews">
+        <form>
+        <div class="btn-group" data-toggle="buttons">
+		  <label class="btn btn-default" id="addoption1">
+		    <input type="radio" name="options"  autocomplete="off">新闻</label>
+		  <label class="btn btn-default" id="addoption2">
+		    <input type="radio" name="options"  autocomplete="off">体育</label>
+		  <label class="btn btn-default" id="addoption3">
+		    <input type="radio" name="options"  autocomplete="off">娱乐</label>
+	      <label class="btn btn-default" id="addoption4">
+		    <input type="radio" name="options"  autocomplete="off">科技</label>
+		</div>
+			<form class="form-horizontal" style="width: 90%; margin: auto;">
+		        		<div class="form-group" style="margin-top: 10px;">       			       							        
+					        <label for="headline">新闻标题:&nbsp;</label><textarea class="form-control"  id="headline" placeholder="请输入新闻标题"  style="width: 300px;height: 35px;"></textarea>
+				     	    <label for="content" style="margin-top: 5px;">新闻内容:&nbsp;</label><textarea class="form-control" id="content" placeholder="请输入新闻内容" style="height: 70px;"></textarea>        		
+				       </div>
+        	</form>
+        <div class="row">
+	        		<div class="col-md-3 col-md-offset-4">	        		
+	        		<button type="submit" class="btn btn-success" data-toggle="button" aria-pressed="false" autocomplete="off" style="margin-top: -8px;width:80px ;">
+					  发布
+					</button>
+	        		</div>
+	        	</div>
+		</form>
+		</div>
+		 <!--删除文章功能，使用simplemodal-->
+        <div id="delnews">
+        <div class="btn-group" data-toggle="buttons">
+		  <label class="btn btn-default" id="deloption1">
+		    <input type="radio" name="options"  autocomplete="off">新闻</label>
+		  <label class="btn btn-default" id="deloption2">
+		    <input type="radio" name="options"  autocomplete="off">体育</label>
+		  <label class="btn btn-default" id="deloption3">
+		    <input type="radio" name="options"  autocomplete="off">娱乐</label>
+	      <label class="btn btn-default" id="deloption4">
+		    <input type="radio" name="options"  autocomplete="off">科技</label>
+		</div>
+			<form class="form-horizontal" style="width: 90%; margin: auto;">
+		        		<div class="form-group" style="margin-top: 40px;">       			       							        
+					        <label for="headline">输入你要删除第几篇新闻:&nbsp;</label><input class="form-control" id="deletenum" type="number"  placeholder="请输入阿拉伯数字，如第一篇为 1"  style="width: 300px;">     		
+				       </div>
+        	</form>
+        <div class="row">
+	        		<div class="col-md-3 col-md-offset-4">	        		
+	        		<button type="button" class="btn btn-danger" data-toggle="button" aria-pressed="false" autocomplete="off" style="margin-top: 30px;width:80px ;">
+					  删除
+					</button>
+	        		</div>
+	        	</div>
+		
+		</div>
+  <div class="container">
+     <div class="row">
+			  <div id="navBlock1"> </div>				 			
+<!--
+	作者：yip_25@163.com
+	时间：2015-11-01
+	描述：顶部LOGO及描述
+-->			
+			    <div id="navBlock0" class="row">
+				   <div class="col-md-2">
+				   		<img class="pull-left" src="img/LOGO/logo.jpg" />
+				   </div>
+			    </div>
+		    </div>
+</div>
+
+<!--
+	作者：yip_25@163.com
+	时间：2015-11-01
+	描述：顶部图片与内容间隙
+-->
+   
+		<div class="container">
+			<div class="row">
+<!--
+	作者：yip_25@163.com
+	时间：2015-10-31
+	描述：内容中心文字新闻
+-->
+				<div class="col-md-12">
+					<ul class="nav nav-tabs">
+						<li id="newsLi" class="active" ><a href="#news" data-toggle = "tab" >新闻</a></li>
+						<li id="sportLi"><a href="#sport" data-toggle = "tab">体育</a></li>
+						<li id="entertamentLi"><a href="#entertament" data-toggle = "tab">娱乐</a></li>
+						<li id="scienceLi"><a href="#science" data-toggle = "tab" >科技</a></li>
+
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="news">						
+						   	<div id="middle" class="list-group">
+										<div class="list-group-item">
+											<h3><strong><a href="#">中共中央召开党外人士座谈会习近平主持</a></strong></h3>
+											
+											<p>
+												中共中央8月21日在中南海召开党外人士座谈会，就中共中央关于制定国民经济和社会发展第十三个五年规划的建议听取各民主党派中央、全国工商联领导人和无党派人士的意见和建议。中共中央总书记习近平主持座谈会并发表重要讲话。
+											</p>
+											<p>
+												<span class="glyphicon glyphicon-pencil"></span>
+												<small>&nbsp;</small>
+												<small class="time">2015-10-31</small>
+												<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+											    <span class="glyphicon glyphicon-eye-open"></span>
+											    <small>&nbsp;</small>
+											    <small class="clickNumber">0</small>
+											</p>
+										</div>
+										<div class="list-group-item">
+											<h3><strong><a href="#">国家卫计委：现在就怀孕不影响孩子符合政策</a></strong></h3>
+											
+											<p>
+												国家卫计委昨日明确，“全面两孩”政策出台后，各省市何时正式落地，全国不设统一时间表。那么，在政策落地前生二孩，会不会被处罚？昨天有消息称，湖南省卫生计生负责人表示，从今至正式实施前生育二孩者不作处理。至此，湖南成为第一个就“全面两孩”落地政策明确表态的省份。不过，包括江苏在内的绝大多数省份，暂时都没有相关消息传出。
+											</p>
+											<p>
+												<span class="glyphicon glyphicon-pencil"></span>
+												<small>&nbsp;</small>
+												<small class="time">2015-10-31</small>
+												<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+											    <span class="glyphicon glyphicon-eye-open"></span>
+											    <small>&nbsp;</small>
+											    <small class="clickNumber">0</small>
+											</p>
+										</div>
+										<div class="list-group-item">
+											<h3><strong><a href="#">慈善法草案6焦点:或破公募权垄断 慈善信息公开</a></strong></h3>
+											
+											<p>
+												《中华人民共和国慈善法（草案）》首次提请全国人大常委会审议。从2005年民政部提出立法建议至今，我国首部慈善领域的专门法律“怀胎十年”终于提交审议。									
+											</p>
+											<p>
+												<span class="glyphicon glyphicon-pencil"></span>
+												<small>&nbsp;</small>
+												<small class="time">2015-10-31</small>
+												<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+											    <span class="glyphicon glyphicon-eye-open"></span>
+											    <small>&nbsp;</small>
+											    <small class="clickNumber">0</small>
+											</p>
+										</div>
+										<div class="list-group-item">
+											<h3><strong><a href="#">中共中央召开党外人士座谈会习近平主持</a></strong></h3>
+											
+											<p>
+												中共中央8月21日在中南海召开党外人士座谈会，就中共中央关于制定国民经济和社会发展第十三个五年规划的建议听取各民主党派中央、全国工商联领导人和无党派人士的意见和建议。中共中央总书记习近平主持座谈会并发表重要讲话。
+											</p>
+											<p>
+												<span class="glyphicon glyphicon-pencil"></span>
+												<small>&nbsp;</small>
+												<small class="time">2015-10-31</small>
+												<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+											    <span class="glyphicon glyphicon-eye-open"></span>
+											    <small>&nbsp;</small>
+											    <small class="clickNumber">0</small>
+											</p>
+										</div>
+										<div class="list-group-item">
+											<h3><strong><a href="#">中共中央召开党外人士座谈会习近平主持</a></strong></h3>
+											
+											<p>
+												中共中央8月21日在中南海召开党外人士座谈会，就中共中央关于制定国民经济和社会发展第十三个五年规划的建议听取各民主党派中央、全国工商联领导人和无党派人士的意见和建议。中共中央总书记习近平主持座谈会并发表重要讲话。
+											</p>
+											<p>
+												<span class="glyphicon glyphicon-pencil"></span>
+												<small>&nbsp;</small>
+												<small class="time">2015-10-31</small>
+												<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+											    <span class="glyphicon glyphicon-eye-open"></span>
+											    <small>&nbsp;</small>
+											    <small class="clickNumber">0</small>
+											</p>
+										</div>
+							</div>						
+						</div>					
+						<div class="tab-pane" id="sport">							
+							<div class="list-group">
+								<div class="list-group-item">
+									<h3><strong><a href="#">数据解析京穗战:先进球不败 恒大利矛PK国安强盾</a></strong></h3>
+									
+									<p>
+										10月31日，中超最后一轮八场比赛将同时开始，届时2015中超联赛的冠军也将诞生。11月1日，中甲最后一轮也将展开最后的争夺。甘肃卫视CHK全景足球栏目将对：10月31日，15:00北京国安VS广州恒大淘宝，11月1日，14:00 河北华夏幸福VS深圳宇恒这两场比赛进行直播。赛前，让我们通过领先体育数据所提供的数据前瞻对今日下午北京国安VS广州恒大淘宝的比赛进行赛前分析。									</p>
+									<p>
+										<span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+								<div class="list-group-item">
+									<h3><strong><a href="#">京疆大战5大看点:宿敌对决火药味足 李根将反戈</a></strong></h3>
+									
+									<p>
+										在今年的揭幕战上，北京队将在10月31日晚迎战宿敌新疆队。去年双方在新疆主场的对决中火星四溅，比赛一度中断20分钟。而今年夏天李根从北京加盟新疆，双方新仇加上旧恨，大战一触即发。									</p>
+									<p>
+										<span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+								<div class="list-group-item">
+									<h3><strong><a href="#">南马报名暗箱操作？组委会：完全公开</a></strong></h3>
+									
+									<p>
+										近日，有网友在微博上对南京马拉松报名提出质疑，“20多人报团队居然都报不上，太令人伤心！这年头老百姓参加个比赛太难，连比赛名额都被霸占了！太不公平！”对此，记者采访了南马组委会的一位知情人士，他表示：“报名完全公开，官方网站上可以直接报名，根本不存在暗箱操作。因为城市国际马拉松赛不仅仅是一种赛事，已经成为城市市民的狂欢盛宴，所以报名尤其火爆。”									</p>
+									<p>
+										<span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+								<div class="list-group-item">
+									<h3><strong><a href="#">数据解析京穗战:先进球不败 恒大利矛PK国安强盾</a></strong></h3>
+									
+									<p>
+										10月31日，中超最后一轮八场比赛将同时开始，届时2015中超联赛的冠军也将诞生。11月1日，中甲最后一轮也将展开最后的争夺。甘肃卫视CHK全景足球栏目将对：10月31日，15:00北京国安VS广州恒大淘宝，11月1日，14:00 河北华夏幸福VS深圳宇恒这两场比赛进行直播。赛前，让我们通过领先体育数据所提供的数据前瞻对今日下午北京国安VS广州恒大淘宝的比赛进行赛前分析。									</p>
+									<p>
+										<span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+								<div class="list-group-item">
+									<h3><strong><a href="#">数据解析京穗战:先进球不败 恒大利矛PK国安强盾</a></strong></h3>
+									
+									<p>
+										10月31日，中超最后一轮八场比赛将同时开始，届时2015中超联赛的冠军也将诞生。11月1日，中甲最后一轮也将展开最后的争夺。甘肃卫视CHK全景足球栏目将对：10月31日，15:00北京国安VS广州恒大淘宝，11月1日，14:00 河北华夏幸福VS深圳宇恒这两场比赛进行直播。赛前，让我们通过领先体育数据所提供的数据前瞻对今日下午北京国安VS广州恒大淘宝的比赛进行赛前分析。									</p>
+									<p>
+										<span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+								<div class="list-group-item">
+									<h3><strong><a href="#">数据解析京穗战:先进球不败 恒大利矛PK国安强盾</a></strong></h3>
+									
+									<p>
+										10月31日，中超最后一轮八场比赛将同时开始，届时2015中超联赛的冠军也将诞生。11月1日，中甲最后一轮也将展开最后的争夺。甘肃卫视CHK全景足球栏目将对：10月31日，15:00北京国安VS广州恒大淘宝，11月1日，14:00 河北华夏幸福VS深圳宇恒这两场比赛进行直播。赛前，让我们通过领先体育数据所提供的数据前瞻对今日下午北京国安VS广州恒大淘宝的比赛进行赛前分析。									</p>
+									<p>
+										<span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+						</div>						
+						</div>
+						<div class="tab-pane" id="entertament">
+							<div class="list-group">
+								<div class="list-group-item">
+									<h3><strong><a href="#">罗志祥新碟首波主打冲冠 开心做自己感谢歌迷</a></strong></h3>
+									
+									<p>
+										歌手罗志祥暌违2年推出全新天碟《真人秀?》，首波主打《够了》果然势如破竹，数字发行首日火速冲上iTunes华语热门歌曲榜冠军！即使成绩傲人。
+									</p>
+									<p>
+									    <span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+								<div class="list-group-item">
+									<h3><strong><a href="#">又开撕！王思聪晒朱圣祎陪男喝酒照讽其不单纯</a></strong></h3>
+									
+									<p>
+										今天凌晨1点多，“国民老公”王思聪在网上晒出一张女演员朱圣祎的陪酒照，称：“这可不像是“天天在学校好好上课”啊小朱，这不陪虞总陪得挺开心的嘛？”并且直接@了女方，疑讽刺其校园生活并不单纯。								
+									</p>
+									<p>
+									    <span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+								<div class="list-group-item">
+									<h3><strong><a href="#">日本票房：《银河街道》夺冠 遭差评炮轰</a></strong></h3>
+									
+									<p>
+										第43周日本电影票房，日本本土喜剧导演三谷幸喜第7部长篇作《银河街道》无悬念登顶榜首，挤下已经连续两周夺冠的《图书馆战争2：最后的任务》；而好莱坞青春大片《移动迷宫2》低迷开画仅排在第五，由吕克·贝松打造《玩命速递》新三部曲《玩命速递：重启之战》紧跟《移动迷宫2》排在第六，TOP10榜单比前一周在新片的刺激下，整体上涨11.2%，总体报收11亿2709万日元。
+									</p>
+									<p>	
+										<span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+							    <div class="list-group-item">
+									<h3><strong><a href="#">罗志祥新碟首波主打冲冠 开心做自己感谢歌迷</a></strong></h3>
+									
+									<p>
+										歌手罗志祥暌违2年推出全新天碟《真人秀?》，首波主打《够了》果然势如破竹，数字发行首日火速冲上iTunes华语热门歌曲榜冠军！即使成绩傲人。
+									</p>
+									<p>
+									    <span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+<div class="list-group-item">
+									<h3><strong><a href="#">罗志祥新碟首波主打冲冠 开心做自己感谢歌迷</a></strong></h3>
+									
+									<p>
+										歌手罗志祥暌违2年推出全新天碟《真人秀?》，首波主打《够了》果然势如破竹，数字发行首日火速冲上iTunes华语热门歌曲榜冠军！即使成绩傲人。
+									</p>
+									<p>
+									    <span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="science">	
+							<div class="list-group">
+								<div class="list-group-item">
+									<h3><strong><a href="#">小米首款指纹识别手机 金属壳或售999元</a></strong></h3>
+									
+									<p>
+										配备指纹识别的红米手机要来似乎已经不是什么秘密了，在国产千元机统一配备指纹识别的前提下，小米迟迟不推出指纹识别产品实在是让人有些纳闷。
+据说，配备指纹识别的红米手机将命名为红米Note 2 Pro，同时它还会采用金属外壳，价格方面颇有杀伤力。考虑到魅蓝Metal和乐1S的定价，最终红米Note 2 Pro的价格可能会在999元左右。										
+                                    </p>
+                                    <p>
+                                        <span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+								<div class="list-group-item">
+									<h3><strong><a href="#">数据狂的最爱 微软手环2评测</a></strong></h3>
+									
+									<p>
+										10月6号，微软手环2和Surface Pro 4、Surface Book一同发布。虽然被后两者的光芒所掩盖，但微软手环2也是手环界中相当特别的存在。除了有曲面OLED屏幕，微软手环2也是地球上传感器最多的穿戴设备，心率传感器、GPS、光感器、体温、紫外线传感器、气压计和血氧检测器都一应俱全。它就是配置最凶悍的智能手环，没有之一。					
+                                    </p>
+                                    <p>
+                                        <span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+								<div class="list-group-item">
+									<h3><strong><a href="#">一加手机X/魅蓝metal领衔 10月新机汇总</a></strong></h3>
+									
+									<p>
+										忙碌的10月即将结束，我们不妨一起来回顾下这个月的亮点。在这个看似平常的十月，前前后后有十余场新品发布会，共有月末的一加手机X、魅蓝 metal、蓝魔MOS1 max，以及月初的Lumia 950等多款新机亮相。而除了新机发布外，有关未来新品的曝光也不在少数，比如红米Note2 Pro的传闻就在最近传的火热。事实上，从10月初的小长假开始到月末，手机圈一直都处于“兴奋”状态，太多新品的涌现，让大家欣喜更应接不暇，是不是总觉得有些细节忘了呢？下面来看看笔者带来的10月新机汇总吧。				
+                                    </p>
+                                    <p>
+                                        <span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+									<div class="list-group-item">
+									<h3><strong><a href="#">小米首款指纹识别手机 金属壳或售999元</a></strong></h3>
+									
+									<p>
+										配备指纹识别的红米手机要来似乎已经不是什么秘密了，在国产千元机统一配备指纹识别的前提下，小米迟迟不推出指纹识别产品实在是让人有些纳闷。
+据说，配备指纹识别的红米手机将命名为红米Note 2 Pro，同时它还会采用金属外壳，价格方面颇有杀伤力。考虑到魅蓝Metal和乐1S的定价，最终红米Note 2 Pro的价格可能会在999元左右。										
+                                    </p>
+                                    <p>
+                                        <span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+									<div class="list-group-item">
+									<h3><strong><a href="#">小米首款指纹识别手机 金属壳或售999元</a></strong></h3>
+									
+									<p>
+										配备指纹识别的红米手机要来似乎已经不是什么秘密了，在国产千元机统一配备指纹识别的前提下，小米迟迟不推出指纹识别产品实在是让人有些纳闷。
+据说，配备指纹识别的红米手机将命名为红米Note 2 Pro，同时它还会采用金属外壳，价格方面颇有杀伤力。考虑到魅蓝Metal和乐1S的定价，最终红米Note 2 Pro的价格可能会在999元左右。										
+                                    </p>
+                                    <p>
+                                        <span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+									<div class="list-group-item">
+									<h3><strong><a href="#">小米首款指纹识别手机 金属壳或售999元</a></strong></h3>
+									
+									<p>
+										配备指纹识别的红米手机要来似乎已经不是什么秘密了，在国产千元机统一配备指纹识别的前提下，小米迟迟不推出指纹识别产品实在是让人有些纳闷。
+据说，配备指纹识别的红米手机将命名为红米Note 2 Pro，同时它还会采用金属外壳，价格方面颇有杀伤力。考虑到魅蓝Metal和乐1S的定价，最终红米Note 2 Pro的价格可能会在999元左右。										
+                                    </p>
+                                    <p>
+                                        <span class="glyphicon glyphicon-pencil"></span>
+										<small>&nbsp;</small>
+										<small class="time">2015-10-31</small>
+										<small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+									    <span class="glyphicon glyphicon-eye-open"></span>
+									    <small>&nbsp;</small>
+									    <small class="clickNumber">0</small>
+									</p>
+								</div>
+							</div>
+						</div>
+						</div>
+					</div>
+			</div>
+		</div>
+    <footer class="container-fluid">
+    	<small>粤ICP备233123123213号 粤ICP证123213213号 人才服务许可证:12321323 粤公网安备:121322323</small>
+           <small>Copyright© 285482599@qq.com kenyeecheung All Rights Reserved</small>
+    </footer>
+	</body>
+</html>
